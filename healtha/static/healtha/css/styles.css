@@ -1,0 +1,15 @@
+#eav_report_datatable
+{
+	border-collapse: collapse;
+}
+
+#eav_report_datatable td, #eav_report_datatable th
+{
+	border: 1px solid black;
+}
+
+#eav_report_datatable th
+{
+	border-bottom: 2px solid black;
+}
+

@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}Health Assessment{% endblock %}</title>
+    <link href="{% static "healtha/css/styles.css" %}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  {% block content %}
+  {{ content }}
+  {% endblock %}
+  </body>
+</html>

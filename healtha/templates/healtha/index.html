@@ -1,0 +1,9 @@
+{% extends "healtha/base.html" %}
+{% block content %}
+<h2>Health Assessment Index</h2>
+<ul>
+	{% for event in event_list %}
+		<li>{{ event }}<a href="{% url 'healtha:event_detail' event.id %}">Report</a> <a href="{% url 'healtha:participant' event.id %}">Add Participant</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}

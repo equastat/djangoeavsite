@@ -1,0 +1,13 @@
+{% extends "healtha/base.html" %}
+{% block content %}
+<h2><a href="{% url 'healtha:index' %}">Health Assessment</a></h2>
+<h3><a href="{% url 'healtha:event_detail' event.id %}">{{ event }}</a></h3>
+<h4>Add Participant</h4>
+<form action="{% url 'healtha:participant_add' event.id %}" method="post">
+{% csrf_token %}
+	<label for="participant_name">Participant Name:</label><br />
+	<input type="text" name="participant_name" id="participant_name" />
+	<input type="submit" value="Submit" />
+</form>
+{% endblock %}
+

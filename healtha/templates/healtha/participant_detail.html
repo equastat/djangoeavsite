@@ -1,0 +1,26 @@
+{% extends "healtha/base.html" %}
+{% block content %}
+<h2>Health Assessment</h2>
+<h3><a href="{% url 'healtha:event_detail' event.id %}">{{ event }}</a></h3>
+<h4>Participant: {{ participant.name }}</h4>
+<a href="{% url 'healtha:participant_question' event_id=event.id participant_id=participant.id question_id=event.survey.get_sorted_questions.0.id %}">Begin Survey</a>
+	<table id="eav_report_datatable">
+		<tr>
+			<th>Question</th><th>Response</th>
+		</tr>
+			{% for question in event.survey.get_sorted_questions %}
+		<tr>
+			<td>{{ question.question_text }}</td>
+				{% if question.id in participant_response %}
+					{% for question_id, response_value in participant_response.items %}
+						{% if question.id == question_id %}
+							<td>{{ response_value }}</td>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<td></td>
+				{% endif %}
+			{% endfor %}
+		</tr>
+	</table>
+{% endblock %}

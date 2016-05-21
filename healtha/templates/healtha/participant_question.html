@@ -1,0 +1,32 @@
+{% extends "healtha/base.html" %}
+{% block content %}
+<h2>Health Assessment</h2>
+<h3><a href="{% url 'healtha:event_detail' event.id %}">{{ event }}</a></h3>
+<h4>Participant: {{ participant.name }}</h4>
+{% if next_question %}
+	<a href="{% url 'healtha:participant_question' event.id participant.id next_question.id %}">Skip to Next Question</a><br/>
+{% endif %}
+{% if previous_question %}
+	<a href="{% url 'healtha:participant_question' event.id participant.id previous_question.id %}">Jump to Previous Question</a><br/>
+{% endif %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div>
+Question #{{ question_ordinal }} of {{ question_count }}
+</div>
+
+<form action="{% url 'healtha:participant_response' event.id participant.id question.id %}" method="post">
+{% csrf_token %}
+	<label for="question_response{{ question.id }}">{{ question.question_text }}</label><br />
+{% if question.question_type == 'StringValue' %}
+	<input type="text" name="question_response_text" id="question_response{{ question.id }}" value="{{ question_response.value|default_if_none:'' }}" />
+{% elif question.question_type == 'IntegerValue' %}
+	<input type="text" name="question_response_text" id="question_response{{ question.id }}" value="{{ question_response.value}}" /> (Enter an integer)
+{% endif %}
+	<input type="submit" value="Submit" />
+{% if next_question %}
+	<input type="hidden" name="next_question_id" value="{{ next_question.id }}" />
+{% endif %}
+</form>
+{% endblock %}
